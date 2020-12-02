@@ -359,15 +359,15 @@ main:
 	leal	-1(%rax), %r11d
 	xorl	%ebx, %ebx
 	xorl	%r13d, %r13d
-	movl	$0, -936(%rbp)
+	movl	$0, -940(%rbp)
 	xorl	%r14d, %r14d
 	xorl	%r15d, %r15d
 	xorl	%r10d, %r10d
-	movl	$0, -932(%rbp)
+	movl	$0, -936(%rbp)
 	xorl	%r9d, %r9d
+	movl	$0, -932(%rbp)
 	movl	$0, -920(%rbp)
 	movl	$0, -948(%rbp)
-	movl	$0, -940(%rbp)
 	jmp	.L50
 	.p2align 4,,10
 	.p2align 3

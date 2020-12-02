@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
 // этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
-	chg_var reduced_array[jsort], sorted_array[jsort], stdout_array[jout], stderr_array[jerr];
+	chg_var reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
 	for (int i = 0; i < jent+1; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
