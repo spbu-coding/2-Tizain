@@ -1,4 +1,5 @@
 ﻿#include <stdio.h>
+#include "sort.h"
 
 void bubble_sort(long int array[] , size_t nsort)
 {
