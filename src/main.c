@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "sort.h"
 
 #define CRITICAL_VALUE 32767
 
-extern void sort(long *strings_array_t, size_t array_size_t);
+extern void sort(long long *array_to_sort, int array_length);
 
 int count(int argc, char* argv[]) {   /* Сколько элементов будет в сформатированном массиве */
 	int arr_count = 0;
@@ -71,7 +72,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (strncmp(console_data[i], "--",2)==0) command_count++;
 
 		if (i != 0) {   
-		long int strtol_result = strtol(console_data[i], &its_char_here, 10);
+		long long int strtol_result = strtol(console_data[i], &its_char_here, 10);
 
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
@@ -122,7 +123,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	
 	printf("From %d to %d\nIts correct.\nYou may write your array:\n", value_from, value_to);
 
-	long int entered_array[100], data; 
+	long long int entered_array[100], data; 
 	char c;
 	int jent = -1;
 	do
@@ -151,7 +152,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
 // этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
-	long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
+	long long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
 	for (int i = 0; i < jent+1; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
@@ -168,11 +169,11 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		}		
 	}
 
-    long int* sorted_array = (long int*)malloc(jsort * sizeof(long int));	
+    long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
 	size_t count = 0;	
 	for (int i = 0; i < jent; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = (long int)malloc(sizeof(long int));
+            sorted_array[count] = (long long int)malloc(sizeof(long long int));
 			sorted_array[count] = entered_array[i];
 			count ++ ; 
 		}
