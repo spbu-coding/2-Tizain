@@ -4,7 +4,7 @@
 
 #define CRITICAL_VALUE 32767
 
-extern void sort(long long *strings_array_t, int array_size_t);
+extern void sort(long *strings_array_t, size_t array_size_t);
 
 int count(int argc, char* argv[]) {   /* Сколько элементов будет в сформатированном массиве */
 	int arr_count = 0;
@@ -172,7 +172,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	size_t count = 0;	
 	for (int i = 0; i < jent; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = (unsigned int)malloc(sizeof(unsigned int));
+            sorted_array[count] = (long int)malloc(sizeof(long int));
 			sorted_array[count] = entered_array[i];
 			count ++ ; 
 		}
