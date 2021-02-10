@@ -1,6 +1,7 @@
 	.file	"sort.c"
 	.text
 	.p2align 4
+<<<<<<< HEAD
 	.globl	sort
 	.type	sort, @function
 sort:
@@ -39,6 +40,65 @@ sort:
 	.cfi_endproc
 .LFE0:
 	.size	sort, .-sort
+=======
+	.globl	bubble_sort
+	.type	bubble_sort, @function
+bubble_sort:
+.LFB23:
+	.cfi_startproc
+	endbr64
+	subq	$1, %rsi
+	je	.L17
+	pushq	%rbx
+	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
+	xorl	%eax, %eax
+	xorl	%ebx, %ebx
+	movq	%rsi, %r11
+	.p2align 4,,10
+	.p2align 3
+.L2:
+	movq	%r11, %r10
+	subq	%rax, %r10
+	je	.L7
+	movq	(%rdi), %rcx
+	xorl	%edx, %edx
+	xorl	%eax, %eax
+	jmp	.L5
+	.p2align 4,,10
+	.p2align 3
+.L18:
+	movslq	%ecx, %rcx
+	movq	%rsi, (%rdi,%r9,8)
+	movq	%rcx, (%r8)
+	cmpq	%r10, %rax
+	jnb	.L7
+.L5:
+	addl	$1, %edx
+	movq	%rax, %r9
+	movl	%edx, %eax
+	leaq	(%rdi,%rax,8), %r8
+	movq	(%r8), %rsi
+	cmpq	%rcx, %rsi
+	jl	.L18
+	movq	%rsi, %rcx
+	cmpq	%r10, %rax
+	jb	.L5
+.L7:
+	leal	1(%rbx), %eax
+	movq	%rax, %rbx
+	cmpq	%r11, %rax
+	jb	.L2
+	popq	%rbx
+	.cfi_def_cfa_offset 8
+	ret
+.L17:
+	.cfi_restore 3
+	ret
+	.cfi_endproc
+.LFE23:
+	.size	bubble_sort, .-bubble_sort
+>>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	.ident	"GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0"
 	.section	.note.GNU-stack,"",@progbits
 	.section	.note.gnu.property,"a"
@@ -56,4 +116,8 @@ sort:
 	.long	 0x3
 3:
 	.align 8
+<<<<<<< HEAD
 4:
+=======
+4:
+>>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
