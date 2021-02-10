@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (strncmp(console_data[i], "--",2)==0) command_count++;
 
 		if (i != 0) {   
-		long long int strtol_result = strtol(console_data[i], &its_char_here, 10);
+		long int strtol_result = strtol(console_data[i], &its_char_here, 10);
 
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
