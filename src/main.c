@@ -1,21 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-<<<<<<< HEAD
 
 #define CRITICAL_VALUE 32767
 
 extern void sort(long long *strings_array_t, int array_size_t);
 
 int count(int argc, char* argv[]) {   /* —ÍÓÎ¸ÍÓ ˝ÎÂÏÂÌÚÓ‚ ·Û‰ÂÚ ‚ ÒÙÓÏ‡ÚËÓ‚‡ÌÌÓÏ Ï‡ÒÒË‚Â */
-=======
-#include "sort.h"
-
-#define CRITICAL_VALUE 32767
-//#define chg_var long int
-
-int count(int argc, char* argv[]) {   /* –°–∫–æ–ª—å–∫–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –±—É–¥–µ—Ç –≤ —Å—Ñ–æ—Ä–º–∞—Ç–∏—Ä–æ–≤–∞–Ω–Ω–æ–º –º–∞—Å—Å–∏–≤–µ */
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	int arr_count = 0;
 	for (int i = 1; i < argc; i++) {
 		if (strncmp (argv[i], "--from=",7)==0)	arr_count ++;
@@ -26,11 +17,7 @@ int count(int argc, char* argv[]) {   /* –°–∫–æ–ª—å–∫–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –±—É–
 	return arr_count;
 }
 
-<<<<<<< HEAD
 char** array_format(int argc, char* argv[]) {  /* —ÓÁ‰‡ÂÏ Ï‡ÒÒË‚ ‚ ÌÛÊÌÓÏ ÙÓÏ‡ÚÂ */
-=======
-char** array_format(int argc, char* argv[]) {  /* –°–æ–∑–¥–∞–µ–º –º–∞—Å—Å–∏–≤ –≤ –Ω—É–∂–Ω–æ–º —Ñ–æ—Ä–º–∞—Ç–µ */
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 
 	int arr_count = count(argc, argv);
 	char** console_data_format = (char**)malloc(arr_count * sizeof(char*));
@@ -57,11 +44,7 @@ char** array_format(int argc, char* argv[]) {  /* –°–æ–∑–¥–∞–µ–º –º–∞—Å—Å–∏–≤ –≤
 }
 
 
-<<<<<<< HEAD
 int main(int argc, char* argv[]) { // ÔËÂÏ ‰‡ÌÌ˚ı --from= Ë --to= Ò ÍÓÌÒÓÎË
-=======
-int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —Å –∫–æ–Ω—Å–æ–ª–∏
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 
 	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
@@ -69,17 +52,10 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
 	
-<<<<<<< HEAD
 	char** console_data = array_format(argc, argv); // ‰‡ÌÌ˚Â Ò ÍÓÌÒÓÎË ÔËÓ·ÂÚ‡˛Ú ÌÛÊÌ˚È ÙÓÏ‡Ú
 	int arr_count = count(argc, argv);	// ÒÍÓÎ¸ÍÓ ˝ÎÂÏÂÌÚÓ‚ ·Û‰ÂÚ ‚ ÛÊÂ ÙÓÏ‡ÚËÓ‚‡ÌÌÓÏ Ï‡ÒÒË‚Â ‰‡ÌÌ˚ı
 
 // œÓËÒÍ Ó¯Ë·ÓÍ ÔË ‚ ‚‚Ó‰Â Ò ÍÓÌÒÓÎË --from= Ë --to= Ë Ì‡ıÓÊ‰ÂÌËÂ ÁÌ‡˜ÂÌËÈ from Ë to
-=======
-	char** console_data = array_format(argc, argv); // –¥–∞–Ω–Ω—ã–µ —Å –∫–æ–Ω—Å–æ–ª–∏ –ø—Ä–∏–æ–±—Ä–µ—Ç–∞—é—Ç –Ω—É–∂–Ω—ã–π —Ñ–æ—Ä–º–∞—Ç
-	int arr_count = count(argc, argv);	// —Å–∫–æ–ª—å–∫–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –±—É–¥–µ—Ç –≤ —É–∂–µ —Ñ–æ—Ä–º–∞—Ç–∏—Ä–æ–≤–∞–Ω–Ω–æ–º –º–∞—Å—Å–∏–≤–µ –¥–∞–Ω–Ω—ã—Ö
-
-// –ü–æ–∏—Å–∫ –æ—à–∏–±–æ–∫ –ø—Ä–∏ –≤ –≤–≤–æ–¥–µ —Å –∫–æ–Ω—Å–æ–ª–∏ --from= –∏ --to= –∏ –Ω–∞—Ö–æ–∂–¥–µ–Ω–∏–µ –∑–Ω–∞—á–µ–Ω–∏–π from –∏ to
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	for (int i = 0; i < arr_count; i++) {
 		if (strcmp(console_data[i], "--from=")==0) {
 			how_many_from++;
@@ -120,11 +96,7 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 		} 
 	}
 
-<<<<<<< HEAD
 // Œ·‡·ÓÚÍ‡ ˝ÚËı Ó¯Ë·ÓÍ 
-=======
-// –û–±—Ä–∞–±–æ—Ç–∫–∞ —ç—Ç–∏—Ö –æ—à–∏–±–æ–∫ 
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	if (how_many_param < 1) {
 		printf("-1\n"); 
 		return -1;
@@ -142,11 +114,7 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 		return -4;
 	}
 
-<<<<<<< HEAD
 // ¬˚‚Ó‰ Ì‡ ˝Í‡Ì Á‡ÔÓÒ‡ Ó ‚‚Â‰ÂÌËË Ï‡ÒÒË‚‡, Â„Ó ÔËÂÏ Ë ÙÓÏ‡Ú
-=======
-// –í—ã–≤–æ–¥ –Ω–∞ —ç–∫—Ä–∞–Ω –∑–∞–ø—Ä–æ—Å–∞ –æ –≤–≤–µ–¥–µ–Ω–∏–∏ –º–∞—Å—Å–∏–≤–∞, –µ–≥–æ –ø—Ä–∏–µ–º –∏ —Ñ–æ—Ä–º–∞—Ç
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	if (how_many_param == 1) {
 		if (from_in_console) value_to = CRITICAL_VALUE;
 		if (to_in_console) value_from = -CRITICAL_VALUE;
@@ -168,13 +136,8 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 //		printf("%d\n", entered_array[jent]); 
 	} 	while(c != '\n');
 
-<<<<<<< HEAD
 /* ˝ÚÓÚ ˆËÍÎ for Â‡ÎËÁÓ‚‡Ì ‰Îˇ ÓÔÂ‰ÂÎÂÌËˇ ÍÓÎË˜ÂÒÚ‚‡ ˝ÎÂÏÂÌÚÓ‚ ‚ Ï‡ÒÒË‚‡ı Stdout, Stderr, Reduced, Sorted,
 	˜ÚÓ·˚ ÌÂ Á‡‰ÂÈÒÚ‚Ó‚‡Ú¸ ‰Îˇ ÌËı ‚ ÔÓ„‡ÏÏÂ ·ÓÎ¸¯Â Ô‡ÏˇÚË, ˜ÂÏ ÌÛÊÌÓ. */
-=======
-/* —ç—Ç–æ—Ç —Ü–∏–∫–ª for —Ä–µ–∞–ª–∏–∑–æ–≤–∞–Ω –¥–ª—è –æ–ø—Ä–µ–¥–µ–ª–µ–Ω–∏—è –∫–æ–ª–∏—á–µ—Å—Ç–≤–∞ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –≤ –º–∞—Å—Å–∏–≤–∞—Ö Stdout, Stderr, Reduced, Sorted,
-	—á—Ç–æ–±—ã –Ω–µ –∑–∞–¥–µ–π—Å—Ç–≤–æ–≤–∞—Ç—å –¥–ª—è –Ω–∏—Ö –≤ –ø—Ä–æ–≥—Ä–∞–º–º–µ –±–æ–ª—å—à–µ –ø–∞–º—è—Ç–∏, —á–µ–º –Ω—É–∂–Ω–æ. */
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	size_t jsort = 0, jerr = 0, jout = 0;
 	for (int i = 0; i < jent+1; i++) { 
 		if (entered_array[i] > value_from && entered_array[i] < value_to) 	jsort++;
@@ -187,11 +150,7 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 		return 0;
 	}
 
-<<<<<<< HEAD
 // ˝ÚÓÚ ˆËÍÎ for Â‡ÎËÁÓ‚‡Ì, ˜ÚÓ·˚ Ì‡ÔÓÎÌËÚ¸ Ï‡ÒÒË‚˚ Stdout, Stderr, Reduced Ëı ÁÌ‡˜ÂÌËˇÏË
-=======
-// —ç—Ç–æ—Ç —Ü–∏–∫–ª for —Ä–µ–∞–ª–∏–∑–æ–≤–∞–Ω, —á—Ç–æ–±—ã –Ω–∞–ø–æ–ª–Ω–∏—Ç—å –º–∞—Å—Å–∏–≤—ã Stdout, Stderr, Reduced –∏—Ö –∑–Ω–∞—á–µ–Ω–∏—è–º–∏
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
 	for (int i = 0; i < jent+1; i++) {
@@ -209,7 +168,6 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 		}		
 	}
 
-<<<<<<< HEAD
     long int* sorted_array = (long int*)malloc(jsort * sizeof(long int));	
 	size_t count = 0;	
 	for (int i = 0; i < jent; i++) {
@@ -221,18 +179,6 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 	}
 
 // ¬˚‚Ó‰ Ï‡ÒÒË‚Ó‚ Stdout, Stderr, Reduced ‚ ÔÓÚÓÍË Ë Ì‡ ˝Í‡Ì 
-=======
-    long int* sorted_array = (long int*)malloc(jsort * sizeof(long int));
-    size_t count = 0;
-    for (int i = 0; i < jent; i++) {
-        if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = entered_array[i];
-            count ++ ;
-        }
-    }
-
-// –í—ã–≤–æ–¥ –º–∞—Å—Å–∏–≤–æ–≤ Stdout, Stderr, Reduced –≤ –ø–æ—Ç–æ–∫–∏ –∏ –Ω–∞ —ç–∫—Ä–∞–Ω 
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 	printf("\nStdout: ");
 	if (jout == 0) printf("-");
 	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%ld ", stdout_array[i]); }
@@ -244,11 +190,7 @@ int main(int argc, char* argv[]) { // –ø—Ä–∏–µ–º –¥–∞–Ω–Ω—ã—Ö --from= –∏ --to= —
 	printf("\nReduced: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", reduced_array[i]); 
 
-<<<<<<< HEAD
 	sort(sorted_array, jsort);  
-=======
-	bubble_sort(sorted_array, jsort);  
->>>>>>> cee803c8b7597d7c05703342cfc4d5da483fea3b
 
 	printf("\nSorted: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", sorted_array[i]); 
