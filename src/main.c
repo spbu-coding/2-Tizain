@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "sort.h"
 
 #define CRITICAL_VALUE 32767
 
