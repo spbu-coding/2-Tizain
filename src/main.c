@@ -127,7 +127,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	int jent = -1;
 	do
 	{
-		if (scanf("%ld%c", &data, &c) !=2)
+		if (scanf("%lld%c", &data, &c) !=2)
 			printf("Data is spelled incorrectly\n");
 		else {
 			jent++;
@@ -181,19 +181,19 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 // ¬ывод массивов Stdout, Stderr, Reduced в потоки и на экран 
 	printf("\nStdout: ");
 	if (jout == 0) printf("-");
-	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%ld ", stdout_array[i]); }
+	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%lld ", stdout_array[i]); }
 
 	printf("\nStderr: ");
 	if (jerr == 0) printf("-");
-	else { for (unsigned int i = 0; i < jerr; i++) fprintf(stderr, "%ld ", stderr_array[i]); 	}
+	else { for (unsigned int i = 0; i < jerr; i++) fprintf(stderr, "%lld ", stderr_array[i]); 	}
 
 	printf("\nReduced: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", reduced_array[i]); 
+	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
 	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", sorted_array[i]); 
+	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
     return 0;
 }
