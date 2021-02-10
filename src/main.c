@@ -98,19 +98,19 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
 // Обработка этих ошибок 
 	if (how_many_param < 1) {
-		printf("-1\n"); 
+	//	printf("-1\n"); 
 		return -1;
 	}
 	if (command_count > 2) {
-		printf("-2\n");
+	//	printf("-2\n");
 		return -2;
 	}
 	if (how_many_from > 1 || how_many_to > 1) {
-		printf("-3\n");
+	//	printf("-3\n");
 		return -3;
 	}
 	if (invalid_values > 1) {
-		printf("-4\n");
+	//	printf("-4\n");
 		return -4;
 	}
 
