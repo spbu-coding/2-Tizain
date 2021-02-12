@@ -43,6 +43,13 @@ char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формат
 	return console_data_format;
 }
 
+int different_positions(long long *array, long long *copied_array, int array_size) {
+	int count_different_numbers = 0;
+	for (int i = 0; i < array_size; i++)
+		if (array[i] != copied_array[i])
+			count_different_numbers++;
+	return count_different_numbers;
+}
 
 int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	if (argc < 2)
@@ -170,7 +177,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
     long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
-	size_t count = 0;	
+/*	size_t count = 0;	
 	for (int i = 0; i < jent; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
             sorted_array[count] = (long long int)malloc(sizeof(long long int));
@@ -178,6 +185,12 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 			count ++ ; 
 		}
 	}
+*/
+	for (size_t i = 0; i < jsort; i++) {
+	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
+		sorted_array[i] = reduced_array[i];
+		}
+
 
 // Вывод массивов Stdout, Stderr, Reduced в потоки и на экран 
 	printf("\nStdout: ");
@@ -196,7 +209,8 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	printf("\nSorted: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
-
-    return 0;
+	int t = different_positions(sorted_array, reduced_array, jsort);
+	printf("\nRtrn: %d ", t);
+    return different_positions(sorted_array, reduced_array, jsort);
 }
 
