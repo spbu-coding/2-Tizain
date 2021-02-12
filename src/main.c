@@ -45,10 +45,13 @@ char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формат
 
 
 int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
-
+	if (argc < 2)
+		return -1;
+	if (argc > 3)
+		return -2;
 	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
-	int index_for_from = 0, index_for_to = 0, how_many_param = 0, invalid_values = 0, \
+	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
 	
@@ -75,12 +78,10 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
-				invalid_values++;	
 				value_from = 0;
 				how_many_param++; }
 					 			
 			if (i == index_for_to) {
-				invalid_values++;
 				value_to = 0;
 				how_many_param++; }
 				}
@@ -98,19 +99,19 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
 // Обработка этих ошибок 
 	if (how_many_param < 1) {
-	//	printf("-1\n"); 
+		printf("-1\n"); 
 		return -1;
 	}
 	if (command_count > 2) {
-	//	printf("-2\n");
+		printf("-2\n");
 		return -2;
 	}
 	if (how_many_from > 1 || how_many_to > 1) {
-	//	printf("-3\n");
+		printf("-3\n");
 		return -3;
 	}
-	if (invalid_values > 1) {
-	//	printf("-4\n");
+	if (how_many_from == 0 && how_many_to == 0) {
+		printf("-4\n");
 		return -4;
 	}
 
