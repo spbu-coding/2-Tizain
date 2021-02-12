@@ -148,7 +148,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
 	if (jsort == 0) {
 		printf("Nothing to sort\n");
-		return 0;
+//		return 0;
 	}
 
 // этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 			j++;
 			reduced_array[j] = entered_array[i];	
 		}
-		if ((how_many_from !=0) &&(entered_array[i] <= value_from)) {
+		if (entered_array[i] <= value_from) {
 			j1++;
 			stdout_array[j1] = entered_array[i];	
 		}
@@ -191,10 +191,11 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	printf("\nReduced: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
-//	sort(sorted_array, jsort);  
+	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
+
 
     return 0;
 }
