@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define CRITICAL_VALUE 32767
+#define CRITICAL_VALUE 2147483647
 
 extern void sort(long long *array_to_sort, int array_length);
 
@@ -54,8 +54,8 @@ int different_positions(long long *array, long long *copied_array, int array_siz
 int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	if (argc < 2)
 		return -1;
-	if (argc > 3)
-		return -2;
+	if (argc > 3) { printf("-2\n");
+		return -2; }
 	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
 	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	printf("\nReduced: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
-	sort(sorted_array, jsort);  
+//	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
