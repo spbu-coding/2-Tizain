@@ -1,9 +1,9 @@
 	.file	"sort.c"
 	.text
 	.p2align 4
-	.globl	bubble_sort
-	.type	bubble_sort, @function
-bubble_sort:
+	.globl	sort
+	.type	sort, @function
+sort:
 .LFB23:
 	.cfi_startproc
 	endbr64
@@ -57,7 +57,7 @@ bubble_sort:
 	ret
 	.cfi_endproc
 .LFE23:
-	.size	bubble_sort, .-bubble_sort
+	.size	sort, .-sort
 	.ident	"GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0"
 	.section	.note.GNU-stack,"",@progbits
 	.section	.note.gnu.property,"a"
