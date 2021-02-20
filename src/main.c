@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "sort.h"
 
-#define CRITICAL_VALUE 32767
-//#define chg_var long int
+#define CRITICAL_VALUE 2147483647
+#define MAX_ARRAY_SIZE 100
 
-int count(int argc, char* argv[]) {   /* РЎРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ Р±СѓРґРµС‚ РІ СЃС„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅРѕРј РјР°СЃСЃРёРІРµ */
+extern void sort(long long *array_to_sort, int array_length);
+
+int count(int argc, char* argv[]) {   /* Сколько элементов будет в сформатированном массиве */
 	int arr_count = 0;
 	for (int i = 1; i < argc; i++) {
 		if (strncmp (argv[i], "--from=",7)==0)	arr_count ++;
@@ -17,7 +18,7 @@ int count(int argc, char* argv[]) {   /* РЎРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ Р±СѓР
 	return arr_count;
 }
 
-char** array_format(int argc, char* argv[]) {  /* РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ РІ РЅСѓР¶РЅРѕРј С„РѕСЂРјР°С‚Рµ */
+char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формате */
 
 	int arr_count = count(argc, argv);
 	char** console_data_format = (char**)malloc(arr_count * sizeof(char*));
@@ -43,19 +44,29 @@ char** array_format(int argc, char* argv[]) {  /* РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ РІ
 	return console_data_format;
 }
 
+int different_positions(long long *array, long long *copied_array, int array_size) {
+	int count_different_numbers = 0;
+	for (int i = 0; i < array_size; i++)
+		if (array[i] != copied_array[i])
+			count_different_numbers++;
+	return count_different_numbers;
+}
 
-int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= СЃ РєРѕРЅСЃРѕР»Рё
-
+int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
+	if (argc < 2)
+		return -1;
+	if (argc > 3) { printf("-2\n");
+		return -2; }
 	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
-	int index_for_from = 0, index_for_to = 0, how_many_param = 0, invalid_values = 0, \
+	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
 	
-	char** console_data = array_format(argc, argv); // РґР°РЅРЅС‹Рµ СЃ РєРѕРЅСЃРѕР»Рё РїСЂРёРѕР±СЂРµС‚Р°СЋС‚ РЅСѓР¶РЅС‹Р№ С„РѕСЂРјР°С‚
-	int arr_count = count(argc, argv);	// СЃРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ Р±СѓРґРµС‚ РІ СѓР¶Рµ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅРѕРј РјР°СЃСЃРёРІРµ РґР°РЅРЅС‹С…
+	char** console_data = array_format(argc, argv); // данные с консоли приобретают нужный формат
+	int arr_count = count(argc, argv);	// сколько элементов будет в уже форматированном массиве данных
 
-// РџРѕРёСЃРє РѕС€РёР±РѕРє РїСЂРё РІ РІРІРѕРґРµ СЃ РєРѕРЅСЃРѕР»Рё --from= Рё --to= Рё РЅР°С…РѕР¶РґРµРЅРёРµ Р·РЅР°С‡РµРЅРёР№ from Рё to
+// Поиск ошибок при в вводе с консоли --from= и --to= и нахождение значений from и to
 	for (int i = 0; i < arr_count; i++) {
 		if (strcmp(console_data[i], "--from=")==0) {
 			how_many_from++;
@@ -75,12 +86,10 @@ int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= С
 
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
-				invalid_values++;	
 				value_from = 0;
 				how_many_param++; }
 					 			
 			if (i == index_for_to) {
-				invalid_values++;
 				value_to = 0;
 				how_many_param++; }
 				}
@@ -96,7 +105,7 @@ int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= С
 		} 
 	}
 
-// РћР±СЂР°Р±РѕС‚РєР° СЌС‚РёС… РѕС€РёР±РѕРє 
+// Обработка этих ошибок 
 	if (how_many_param < 1) {
 		printf("-1\n"); 
 		return -1;
@@ -109,35 +118,34 @@ int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= С
 		printf("-3\n");
 		return -3;
 	}
-	if (invalid_values > 1) {
+	if (how_many_from == 0 && how_many_to == 0) {
 		printf("-4\n");
 		return -4;
 	}
 
-// Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ Р·Р°РїСЂРѕСЃР° Рѕ РІРІРµРґРµРЅРёРё РјР°СЃСЃРёРІР°, РµРіРѕ РїСЂРёРµРј Рё С„РѕСЂРјР°С‚
+// Вывод на экран запроса о введении массива, его прием и формат
 	if (how_many_param == 1) {
 		if (from_in_console) value_to = CRITICAL_VALUE;
 		if (to_in_console) value_from = -CRITICAL_VALUE;
 	}
 	
-	printf("From %d to %d\nIts correct.\nYou may write your array:\n", value_from, value_to);
 
-	long int entered_array[100], data; 
+	long long int entered_array[MAX_ARRAY_SIZE], data; 
 	char c;
 	int jent = -1;
 	do
 	{
-		if (scanf("%ld%c", &data, &c) !=2)
+		if (scanf("%lld%c", &data, &c) !=2)
 			printf("Data is spelled incorrectly\n");
 		else {
 			jent++;
 			entered_array[jent] = data;
 		}
 //		printf("%d\n", entered_array[jent]); 
-	} 	while(c != '\n');
+	} 	while(c != '\n' || jent != 100);
 
-/* СЌС‚РѕС‚ С†РёРєР» for СЂРµР°Р»РёР·РѕРІР°РЅ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІР°С… Stdout, Stderr, Reduced, Sorted,
-	С‡С‚РѕР±С‹ РЅРµ Р·Р°РґРµР№СЃС‚РІРѕРІР°С‚СЊ РґР»СЏ РЅРёС… РІ РїСЂРѕРіСЂР°РјРјРµ Р±РѕР»СЊС€Рµ РїР°РјСЏС‚Рё, С‡РµРј РЅСѓР¶РЅРѕ. */
+/* этот цикл for реализован для определения количества элементов в массивах Stdout, Stderr, Reduced, Sorted,
+	чтобы не задействовать для них в программе больше памяти, чем нужно. */
 	size_t jsort = 0, jerr = 0, jout = 0;
 	for (int i = 0; i < jent+1; i++) { 
 		if (entered_array[i] > value_from && entered_array[i] < value_to) 	jsort++;
@@ -147,11 +155,11 @@ int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= С
 
 	if (jsort == 0) {
 		printf("Nothing to sort\n");
-		return 0;
+//		return 0;
 	}
 
-// СЌС‚РѕС‚ С†РёРєР» for СЂРµР°Р»РёР·РѕРІР°РЅ, С‡С‚РѕР±С‹ РЅР°РїРѕР»РЅРёС‚СЊ РјР°СЃСЃРёРІС‹ Stdout, Stderr, Reduced РёС… Р·РЅР°С‡РµРЅРёСЏРјРё
-	long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
+// этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
+	long long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
 	for (int i = 0; i < jent+1; i++) {
 		if (entered_array[i] > value_from && entered_array[i] < value_to) {
@@ -168,32 +176,32 @@ int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= С
 		}		
 	}
 
-    long int* sorted_array = (long int*)malloc(jsort * sizeof(long int));
-    size_t count = 0;
-    for (int i = 0; i < jent; i++) {
-        if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = entered_array[i];
-            count ++ ;
-        }
-    }
+    long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
+	for (size_t i = 0; i < jsort; i++) {
+	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
+		sorted_array[i] = reduced_array[i];
+		}
 
-// Р’С‹РІРѕРґ РјР°СЃСЃРёРІРѕРІ Stdout, Stderr, Reduced РІ РїРѕС‚РѕРєРё Рё РЅР° СЌРєСЂР°РЅ 
+
+// Вывод массивов Stdout, Stderr, Reduced в потоки и на экран 
 	printf("\nStdout: ");
 	if (jout == 0) printf("-");
-	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%ld ", stdout_array[i]); }
+	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%lld ", stdout_array[i]); }
 
 	printf("\nStderr: ");
 	if (jerr == 0) printf("-");
-	else { for (unsigned int i = 0; i < jerr; i++) fprintf(stderr, "%ld ", stderr_array[i]); 	}
+	else { for (unsigned int i = 0; i < jerr; i++) fprintf(stderr, "%lld ", stderr_array[i]); 	}
 
 	printf("\nReduced: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", reduced_array[i]); 
+	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
-	bubble_sort(sorted_array, jsort);  
+//	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%ld ", sorted_array[i]); 
+	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
-    return 0;
+	int t = different_positions(sorted_array, reduced_array, jsort);
+	printf("\nRtrn: %d ", t);
+    return different_positions(sorted_array, reduced_array, jsort);
 }
 
