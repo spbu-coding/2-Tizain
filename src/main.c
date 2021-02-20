@@ -3,10 +3,7 @@
 #include <stdlib.h>
 
 #define CRITICAL_VALUE 2147483647
-<<<<<<< HEAD
 #define MAX_ARRAY_SIZE 100
-=======
->>>>>>> 9bf22e0748b7f6bc1301ea670f95d16b8b3ebcb0
 
 extern void sort(long long *array_to_sort, int array_length);
 
@@ -132,12 +129,9 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (to_in_console) value_from = -CRITICAL_VALUE;
 	}
 	
+//	printf("From %d to %d\nIts correct.\nYou may write your array:\n", value_from, value_to);
 
-<<<<<<< HEAD
 	long long int entered_array[MAX_ARRAY_SIZE], data; 
-=======
-	long long int entered_array[100], data; 
->>>>>>> 9bf22e0748b7f6bc1301ea670f95d16b8b3ebcb0
 	char c;
 	int jent = -1;
 	do
@@ -184,18 +178,6 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
     long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
-<<<<<<< HEAD
-=======
-/*	size_t count = 0;	
-	for (int i = 0; i < jent; i++) {
-		if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = (long long int)malloc(sizeof(long long int));
-			sorted_array[count] = entered_array[i];
-			count ++ ; 
-		}
-	}
-*/
->>>>>>> 9bf22e0748b7f6bc1301ea670f95d16b8b3ebcb0
 	for (size_t i = 0; i < jsort; i++) {
 	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
 		sorted_array[i] = reduced_array[i];
