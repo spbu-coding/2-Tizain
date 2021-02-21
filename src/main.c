@@ -154,11 +154,11 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (entered_array[i] >= value_to) 	jerr++;
 	}
 
-	if (jsort == 0) {
+/*	if (jsort == 0) {
 		printf("Nothing to sort\n");
 //		return 0;
 	}
-
+*/
 // этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
 	long long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
@@ -196,13 +196,13 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	printf("\nReduced: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
-//	sort(sorted_array, jsort);  
+	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
 	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
-	int t = different_positions(sorted_array, reduced_array, jsort);
-	printf("\nRtrn: %d ", t);
+//	int t = different_positions(sorted_array, reduced_array, jsort);
+//	printf("\nRtrn: %d ", t);
     return different_positions(sorted_array, reduced_array, jsort);
 }
 
