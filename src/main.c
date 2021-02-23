@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define CRITICAL_VALUE 2147483647
+#define CRITICAL_VALUE 32767
 #define MAX_ARRAY_SIZE 100
 
 extern void sort(long long *array_to_sort, int array_length);
@@ -135,19 +135,14 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	char c;
 	int jent = -1;
 	do
-	{
-		if (scanf("%lld%c", &data, &c) !=2)
-			printf("Data is spelled incorrectly\n");
-		else {
-			jent++;
-			entered_array[jent] = data;
-		}
-//		printf("%d\n", entered_array[jent]); 
-	} 	while(c != '\n' || jent != 100);
+	{	scanf("%lld%c", &data, &c);
+		jent++;
+		entered_array[jent] = data;
+	} 	while(c == ' ');
 
 /* этот цикл for реализован дл€ определени€ количества элементов в массивах Stdout, Stderr, Reduced, Sorted,
 	чтобы не задействовать дл€ них в программе больше пам€ти, чем нужно. */
-	size_t jsort = 0, jerr = 0, jout = 0;
+	int jsort = 0, jerr = 0, jout = 0;
 	for (int i = 0; i < jent+1; i++) { 
 		if (entered_array[i] > value_from && entered_array[i] < value_to) 	jsort++;
 		if (entered_array[i] <= value_from) 	jout++;
@@ -178,7 +173,16 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
     long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
-	for (size_t i = 0; i < jsort; i++) {
+/*	size_t count = 0;	
+	for (int i = 0; i < jent; i++) {
+		if (entered_array[i] > value_from && entered_array[i] < value_to) {
+            sorted_array[count] = (long long int)malloc(sizeof(long long int));
+			sorted_array[count] = entered_array[i];
+			count ++ ; 
+		}
+	}
+*/
+	for (int i = 0; i < jsort; i++) {
 	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
 		sorted_array[i] = reduced_array[i];
 		}
@@ -187,19 +191,19 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 // ¬ывод массивов Stdout, Stderr, Reduced в потоки и на экран 
 	printf("\nStdout: ");
 	if (jout == 0) printf("-");
-	else { for (unsigned int i = 0; i < jout; i++) fprintf(stdout, "%lld ", stdout_array[i]); }
+	else { for (int i = 0; i < jout; i++) fprintf(stdout, "%lld ", stdout_array[i]); }
 
 	printf("\nStderr: ");
 	if (jerr == 0) printf("-");
-	else { for (unsigned int i = 0; i < jerr; i++) fprintf(stderr, "%lld ", stderr_array[i]); 	}
+	else { for (int i = 0; i < jerr; i++) fprintf(stderr, "%lld ", stderr_array[i]); 	}
 
 	printf("\nReduced: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
+	for (int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
 
 	sort(sorted_array, jsort);  
 
 	printf("\nSorted: ");
-	for (unsigned int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
+	for (int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
 //	int t = different_positions(sorted_array, reduced_array, jsort);
 //	printf("\nRtrn: %d ", t);
