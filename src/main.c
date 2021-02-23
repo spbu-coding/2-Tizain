@@ -129,7 +129,6 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (to_in_console) value_from = -CRITICAL_VALUE;
 	}
 	
-//	printf("From %d to %d\nIts correct.\nYou may write your array:\n", value_from, value_to);
 
 	long long int entered_array[MAX_ARRAY_SIZE], data; 
 	char c;
@@ -173,15 +172,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
     long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
-/*	size_t count = 0;	
-	for (int i = 0; i < jent; i++) {
-		if (entered_array[i] > value_from && entered_array[i] < value_to) {
-            sorted_array[count] = (long long int)malloc(sizeof(long long int));
-			sorted_array[count] = entered_array[i];
-			count ++ ; 
-		}
-	}
-*/
+
 	for (int i = 0; i < jsort; i++) {
 	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
 		sorted_array[i] = reduced_array[i];
@@ -205,8 +196,6 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	printf("\nSorted: ");
 	for (int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
 
-//	int t = different_positions(sorted_array, reduced_array, jsort);
-//	printf("\nRtrn: %d ", t);
     return different_positions(sorted_array, reduced_array, jsort);
 }
 
