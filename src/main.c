@@ -55,7 +55,7 @@ int different_positions(long long *array, long long *copied_array, int array_siz
 int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	if (argc < 2)
 		return -1;
-	if (argc > 3) { printf("-2\n");
+	if (argc > 3) {// printf("-2\n");
 		return -2; }
 	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
@@ -107,19 +107,19 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
 // Обработка этих ошибок 
 	if (how_many_param < 1) {
-		printf("-1\n"); 
+//		printf("-1\n"); 
 		return -1;
 	}
 	if (command_count > 2) {
-		printf("-2\n");
+//		printf("-2\n");
 		return -2;
 	}
 	if (how_many_from > 1 || how_many_to > 1) {
-		printf("-3\n");
+//		printf("-3\n");
 		return -3;
 	}
 	if (how_many_from == 0 && how_many_to == 0) {
-		printf("-4\n");
+//		printf("-4\n");
 		return -4;
 	}
 
@@ -128,16 +128,15 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (from_in_console) value_to = CRITICAL_VALUE;
 		if (to_in_console) value_from = -CRITICAL_VALUE;
 	}
-	
 
 	long long int entered_array[MAX_ARRAY_SIZE], data; 
 	char c;
 	int jent = -1;
 	do
-	{	scanf("%lld%c", &data, &c);
+	{	scanf("%lli%c", &data, &c);
 		jent++;
 		entered_array[jent] = data;
-	} 	while(c == ' ');
+	} 	while(c != '\n' || jent != MAX_ARRAY_SIZE);
 
 /* этот цикл for реализован для определения количества элементов в массивах Stdout, Stderr, Reduced, Sorted,
 	чтобы не задействовать для них в программе больше памяти, чем нужно. */
@@ -148,11 +147,6 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (entered_array[i] >= value_to) 	jerr++;
 	}
 
-/*	if (jsort == 0) {
-		printf("Nothing to sort\n");
-//		return 0;
-	}
-*/
 // этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
 	long long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
@@ -172,7 +166,6 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	}
 
     long long int* sorted_array = (long long int*)malloc(jsort * sizeof(long long int));	
-
 	for (int i = 0; i < jsort; i++) {
 	    sorted_array[i] = (long long int)malloc(sizeof(long long int));
 		sorted_array[i] = reduced_array[i];
@@ -180,21 +173,25 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 
 
 // Вывод массивов Stdout, Stderr, Reduced в потоки и на экран 
-	printf("\nStdout: ");
-	if (jout == 0) printf("-");
-	else { for (int i = 0; i < jout; i++) fprintf(stdout, "%lld ", stdout_array[i]); }
+//	printf("\nStdout: ");
+//	if (jout == 0) printf("-");
+//	else { 
+    for (int i = 0; i < jout; i++) fprintf(stdout, "%lli ", stdout_array[i]); 
+ //   }
 
-	printf("\nStderr: ");
-	if (jerr == 0) printf("-");
-	else { for (int i = 0; i < jerr; i++) fprintf(stderr, "%lld ", stderr_array[i]); 	}
+//	printf("Stderr: ");
+//	if (jerr == 0) printf("-");
+//	else { 
+    for (int i = 0; i < jerr; i++) fprintf(stderr, "%lli ", stderr_array[i]); 	
+ //   }
 
-	printf("\nReduced: ");
-	for (int i = 0; i < jsort; i++) printf("%lld ", reduced_array[i]); 
+//	printf("Reduced: ");
+//	for (int i = 0; i < jsort; i++) printf("%lli ", reduced_array[i]); 
 
 	sort(sorted_array, jsort);  
 
-	printf("\nSorted: ");
-	for (int i = 0; i < jsort; i++) printf("%lld ", sorted_array[i]); 
+//	printf("Sorted: ");
+//	for (int i = 0; i < jsort; i++) printf("%lli ", sorted_array[i]); 
 
     return different_positions(sorted_array, reduced_array, jsort);
 }
