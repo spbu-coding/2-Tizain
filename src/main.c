@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 	{	scanf("%lli%c", &data, &c);
 		jent++;
 		entered_array[jent] = data;
-	} 	while(c != '\n' || jent != MAX_ARRAY_SIZE);
+	} 	while(c != '\n' || jent != MAX_ARRAY_SIZE-1);
 
 /* этот цикл for реализован для определения количества элементов в массивах Stdout, Stderr, Reduced, Sorted,
 	чтобы не задействовать для них в программе больше памяти, чем нужно. */
