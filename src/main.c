@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-#define CRITICAL_VALUE 32767
+#define CRITICAL_VALUE 100000
 #define MAX_ARRAY_SIZE 100
 
 extern void sort(long long *array_to_sort, int array_length);
 
-int count(int argc, char* argv[]) {   /* Сколько элементов будет в сформатированном массиве */
+int count(int argc, char* argv[]) {   /* Из строки ввода создадим массив строк, к-рый потом будем обрабатывать 
+	считаем количество элементов в будущем массиве */
 	int arr_count = 0;
 	for (int i = 1; i < argc; i++) {
 		if (strncmp (argv[i], "--from=",7)==0)	arr_count ++;
@@ -18,23 +20,23 @@ int count(int argc, char* argv[]) {   /* Сколько элементов будет в сформатирован
 	return arr_count;
 }
 
-char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формате */
-
-	int arr_count = count(argc, argv);
+char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формате 
+	отделим --from= от числа и --to= от числа*/
+	int arr_count = count(argc, argv);  // число элементов в будущем массиве
 	char** console_data_format = (char**)malloc(arr_count * sizeof(char*));
-	for(int i = 0; i < arr_count; i++)
-        console_data_format[i] = (char*)malloc(10);
+	for(int i = 0; i < arr_count; i++) 
+        console_data_format[i] = (char*)malloc(10); // выделяем память под массив
 	
-	int j = -1;
+	int j = -1;  // для занесения текущего элемента в массив
 	for (int i = 1; i < argc; i++) {
 		j++;
 		if (strncmp (argv[i], "--from=",7)==0) {
-			strcpy(console_data_format[j], "--from=");
+			strcpy(console_data_format[j], "--from="); // разделяем from и число идущее за ним
 			strcpy(console_data_format[j+1],argv[i] + 7);
 			j++;
 		}
 		else if (strncmp (argv[i], "--to=",5)==0) {
-			strcpy(console_data_format[j], "--to=");
+			strcpy(console_data_format[j], "--to="); // разделяем to и число идущее за ним
 			strcpy(console_data_format[j+1], argv[i] + 5);
 			j++;
 		}
@@ -57,7 +59,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		return -1;
 	if (argc > 3) {// printf("-2\n");
 		return -2; }
-	typedef enum{false, true} bool;
+//	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
 	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
@@ -72,12 +74,14 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 			how_many_from++;
 			index_for_from = i + 1;
 			from_in_console = true;
+			if (i == arr_count-1) value_from = 0; 
 			}
 
 		if (strcmp(console_data[i], "--to=")==0) {
 			how_many_to++;
 			index_for_to = i + 1;
 			to_in_console = true;
+			if (i == arr_count-1) value_to = 0; 
 			}
 		if (strncmp(console_data[i], "--",2)==0) command_count++;
 
