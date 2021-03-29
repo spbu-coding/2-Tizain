@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		return -2; }
 //	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
+	bool invalid_to = false, invalid_from = false;
 	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
@@ -91,10 +92,12 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
 				value_from = 0;
+				invalid_from = true;
 				how_many_param++; }
 					 			
 			if (i == index_for_to) {
 				value_to = 0;
+				invalid_to = true;
 				how_many_param++; }
 				}
 		 else { 
@@ -126,7 +129,9 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 //		printf("-4\n");
 		return -4;
 	}
-
+	if (invalid_to == true && invalid_from == true) {
+		return -4;
+	}
 // ¬ывод на экран запроса о введении массива, его прием и формат
 	if (how_many_param == 1) {
 		if (from_in_console) value_to = CRITICAL_VALUE;
