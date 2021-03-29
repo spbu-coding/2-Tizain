@@ -198,7 +198,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
 	sort(sorted_array, jsort);  
 
 //	printf("Sorted: ");
-	for (int i = 0; i < jsort; i++) printf("%lli ", sorted_array[i]); 
+//	for (int i = 0; i < jsort; i++) printf("%lli ", sorted_array[i]); 
 
     return different_positions(sorted_array, reduced_array, jsort);
 }
