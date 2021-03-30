@@ -12,8 +12,8 @@ int count(int argc, char* argv[]) {   /* Из строки ввода созда
 	считаем количество элементов в будущем массиве */
 	int arr_count = 0;
 	for (int i = 1; i < argc; i++) {
-		if (strncmp (argv[i], "--from=",7)==0 && strcmp(argv[i], "--from=")!=0 ) 	arr_count ++;
-		if (strncmp (argv[i], "--to=",5)==0 && strcmp(argv[i], "--to=")!=0 )	arr_count ++;
+		if (strncmp (argv[i], "--from=",7)==0)	arr_count ++;
+		if (strncmp (argv[i], "--to=",5)==0)	arr_count ++;
 		}
 	arr_count += (argc-1);
 
@@ -32,18 +32,17 @@ char** array_format(int argc, char* argv[]) {  /* Создаем массив в
 		j++;
 		if (strncmp (argv[i], "--from=",7)==0) {
 			strcpy(console_data_format[j], "--from="); // разделяем from и число идущее за ним
-			if (strcmp(argv[i], "--from=")!=0) { 
-				strcpy(console_data_format[j+1],argv[i] + 7);
-				j++; }
+			strcpy(console_data_format[j+1],argv[i] + 7);
+			j++;
 		}
 		else if (strncmp (argv[i], "--to=",5)==0) {
 			strcpy(console_data_format[j], "--to="); // разделяем to и число идущее за ним
-			if (strcmp(argv[i], "--to=")!=0) { 
-				strcpy(console_data_format[j+1], argv[i] + 5);
-				j++; }
+			strcpy(console_data_format[j+1], argv[i] + 5);
+			j++;
 		}
 		else strcpy(console_data_format[j], argv[i]);
 	}
+
 	return console_data_format;
 }
 
@@ -62,11 +61,16 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
 		return -2; }
 //	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
-	bool invalid_to = false, invalid_from = false;
 	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
-	
+	bool no_to = true, no_from = true;        
+    for (int i = 1; i < argc; i++) {
+		if (strncmp (argv[i], "--from=",7)==0)	no_from = false;
+		if (strncmp (argv[i], "--to=",5)==0)	no_to = false;
+	}	
+	if (no_to == true && no_from == true) 
+		return -4;
 	char** console_data = array_format(argc, argv); // данные с консоли приобретают нужный формат
 	int arr_count = count(argc, argv);	// сколько элементов будет в уже форматированном массиве данных
 
@@ -76,14 +80,14 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
 			how_many_from++;
 			index_for_from = i + 1;
 			from_in_console = true;
-			if (i == arr_count-1) { value_from = 0; invalid_from = true;  }
+			if (i == arr_count-1) value_from = 0; 
 			}
 
 		if (strcmp(console_data[i], "--to=")==0) {
 			how_many_to++;
 			index_for_to = i + 1;
 			to_in_console = true;
-			if (i == arr_count-1) { value_to = 0; invalid_to = true;  }
+			if (i == arr_count-1) value_to = 0; 
 			}
 		if (strncmp(console_data[i], "--",2)==0) command_count++;
 
@@ -93,12 +97,10 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
      	 if (*its_char_here) {			
 			if (i == index_for_from) {
 				value_from = 0;
-				invalid_from = true;
-				how_many_param++;  }
+				how_many_param++; }
 					 			
 			if (i == index_for_to) {
 				value_to = 0;
-				invalid_to = true;
 				how_many_param++; }
 				}
 		 else { 
@@ -126,10 +128,11 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
 //		printf("-3\n");
 		return -3;
 	}
-	if (invalid_to == true && invalid_from == true) {
+	if (how_many_from == 0 && how_many_to == 0) {
 //		printf("-4\n");
 		return -4;
 	}
+
 // Вывод на экран запроса о введении массива, его прием и формат
 	if (how_many_param == 1) {
 		if (from_in_console) value_to = CRITICAL_VALUE;
