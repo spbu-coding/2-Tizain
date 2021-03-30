@@ -8,8 +8,8 @@
 
 extern void sort(long long *array_to_sort, int array_length);
 
-int count(int argc, char* argv[]) {   /* Из строки ввода создадим массив строк, к-рый потом будем обрабатывать 
-	считаем количество элементов в будущем массиве */
+int count(int argc, char* argv[]) {   /* РР· СЃС‚СЂРѕРєРё РІРІРѕРґР° СЃРѕР·РґР°РґРёРј РјР°СЃСЃРёРІ СЃС‚СЂРѕРє, Рє-СЂС‹Р№ РїРѕС‚РѕРј Р±СѓРґРµРј РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊ 
+	СЃС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ Р±СѓРґСѓС‰РµРј РјР°СЃСЃРёРІРµ */
 	int arr_count = 0;
 	for (int i = 1; i < argc; i++) {
 		if (strncmp (argv[i], "--from=",7)==0)	arr_count ++;
@@ -20,23 +20,23 @@ int count(int argc, char* argv[]) {   /* Из строки ввода создадим массив строк, 
 	return arr_count;
 }
 
-char** array_format(int argc, char* argv[]) {  /* Создаем массив в нужном формате 
-	отделим --from= от числа и --to= от числа*/
-	int arr_count = count(argc, argv);  // число элементов в будущем массиве
+char** array_format(int argc, char* argv[]) {  /* РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ РІ РЅСѓР¶РЅРѕРј С„РѕСЂРјР°С‚Рµ 
+	РѕС‚РґРµР»РёРј --from= РѕС‚ С‡РёСЃР»Р° Рё --to= РѕС‚ С‡РёСЃР»Р°*/
+	int arr_count = count(argc, argv);  // С‡РёСЃР»Рѕ СЌР»РµРјРµРЅС‚РѕРІ РІ Р±СѓРґСѓС‰РµРј РјР°СЃСЃРёРІРµ
 	char** console_data_format = (char**)malloc(arr_count * sizeof(char*));
 	for(int i = 0; i < arr_count; i++) 
-        console_data_format[i] = (char*)malloc(10); // выделяем память под массив
+        console_data_format[i] = (char*)malloc(10); // РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РјР°СЃСЃРёРІ
 	
-	int j = -1;  // для занесения текущего элемента в массив
+	int j = -1;  // РґР»СЏ Р·Р°РЅРµСЃРµРЅРёСЏ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° РІ РјР°СЃСЃРёРІ
 	for (int i = 1; i < argc; i++) {
 		j++;
 		if (strncmp (argv[i], "--from=",7)==0) {
-			strcpy(console_data_format[j], "--from="); // разделяем from и число идущее за ним
+			strcpy(console_data_format[j], "--from="); // СЂР°Р·РґРµР»СЏРµРј from Рё С‡РёСЃР»Рѕ РёРґСѓС‰РµРµ Р·Р° РЅРёРј
 			strcpy(console_data_format[j+1],argv[i] + 7);
 			j++;
 		}
 		else if (strncmp (argv[i], "--to=",5)==0) {
-			strcpy(console_data_format[j], "--to="); // разделяем to и число идущее за ним
+			strcpy(console_data_format[j], "--to="); // СЂР°Р·РґРµР»СЏРµРј to Рё С‡РёСЃР»Рѕ РёРґСѓС‰РµРµ Р·Р° РЅРёРј
 			strcpy(console_data_format[j+1], argv[i] + 5);
 			j++;
 		}
@@ -54,26 +54,27 @@ int different_positions(long long *array, long long *copied_array, int array_siz
 	return count_different_numbers;
 }
 
-int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
+int main(int argc, char* argv[]) { // РїСЂРёРµРј РґР°РЅРЅС‹С… --from= Рё --to= СЃ РєРѕРЅСЃРѕР»Рё
 	if (argc < 2)
 		return -1;
 	if (argc > 3) {// printf("-2\n");
 		return -2; }
-	bool invalid_to = false, invalid_from = false;        
-    	for (int i = 1; i < argc; i++) {
-		if (strcmp (argv[i], "--from=")==0)	invalid_from = true;
-		if (strcmp (argv[i], "--to=")==0)	invalid_to = true;
-		}
 //	typedef enum{false, true} bool;
 	bool from_in_console = false, to_in_console = false;
 	int index_for_from = 0, index_for_to = 0, how_many_param = 0,  \
 	value_from = 0, value_to = 0, command_count = 0, how_many_from = 0, how_many_to = 0; 
 	char* its_char_here;
-	
-	char** console_data = array_format(argc, argv); // данные с консоли приобретают нужный формат
-	int arr_count = count(argc, argv);	// сколько элементов будет в уже форматированном массиве данных
+	bool no_to = true, no_from = true;        
+    for (int i = 1; i < argc; i++) {
+		if (strncmp (argv[i], "--from=",7)==0)	no_from = false;
+		if (strncmp (argv[i], "--to=",5)==0)	no_to = false;
+	}	
+	if (no_to == true && no_from == true) 
+		return -4;
+	char** console_data = array_format(argc, argv); // РґР°РЅРЅС‹Рµ СЃ РєРѕРЅСЃРѕР»Рё РїСЂРёРѕР±СЂРµС‚Р°СЋС‚ РЅСѓР¶РЅС‹Р№ С„РѕСЂРјР°С‚
+	int arr_count = count(argc, argv);	// СЃРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ Р±СѓРґРµС‚ РІ СѓР¶Рµ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅРѕРј РјР°СЃСЃРёРІРµ РґР°РЅРЅС‹С…
 
-// Поиск ошибок при в вводе с консоли --from= и --to= и нахождение значений from и to
+// РџРѕРёСЃРє РѕС€РёР±РѕРє РїСЂРё РІ РІРІРѕРґРµ СЃ РєРѕРЅСЃРѕР»Рё --from= Рё --to= Рё РЅР°С…РѕР¶РґРµРЅРёРµ Р·РЅР°С‡РµРЅРёР№ from Рё to
 	for (int i = 0; i < arr_count; i++) {
 		if (strcmp(console_data[i], "--from=")==0) {
 			how_many_from++;
@@ -114,7 +115,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		} 
 	}
 
-// Обработка этих ошибок 
+// РћР±СЂР°Р±РѕС‚РєР° СЌС‚РёС… РѕС€РёР±РѕРє 
 	if (how_many_param < 1) {
 //		printf("-1\n"); 
 		return -1;
@@ -127,10 +128,12 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 //		printf("-3\n");
 		return -3;
 	}
-	if (invalid_to == true && invalid_from == true) {
+	if (how_many_from == 0 && how_many_to == 0) {
+//		printf("-4\n");
 		return -4;
 	}
-// Вывод на экран запроса о введении массива, его прием и формат
+
+// Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ Р·Р°РїСЂРѕСЃР° Рѕ РІРІРµРґРµРЅРёРё РјР°СЃСЃРёРІР°, РµРіРѕ РїСЂРёРµРј Рё С„РѕСЂРјР°С‚
 	if (how_many_param == 1) {
 		if (from_in_console) value_to = CRITICAL_VALUE;
 		if (to_in_console) value_from = -CRITICAL_VALUE;
@@ -145,8 +148,8 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		entered_array[jent] = data;
 	} 	while(c == ' ');
 
-/* этот цикл for реализован для определения количества элементов в массивах Stdout, Stderr, Reduced, Sorted,
-	чтобы не задействовать для них в программе больше памяти, чем нужно. */
+/* СЌС‚РѕС‚ С†РёРєР» for СЂРµР°Р»РёР·РѕРІР°РЅ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІР°С… Stdout, Stderr, Reduced, Sorted,
+	С‡С‚РѕР±С‹ РЅРµ Р·Р°РґРµР№СЃС‚РІРѕРІР°С‚СЊ РґР»СЏ РЅРёС… РІ РїСЂРѕРіСЂР°РјРјРµ Р±РѕР»СЊС€Рµ РїР°РјСЏС‚Рё, С‡РµРј РЅСѓР¶РЅРѕ. */
 	int jsort = 0, jerr = 0, jout = 0;
 	for (int i = 0; i < jent+1; i++) { 
 		if (entered_array[i] > value_from && entered_array[i] < value_to) 	jsort++;
@@ -154,7 +157,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		if (entered_array[i] >= value_to) 	jerr++;
 	}
 
-// этот цикл for реализован, чтобы наполнить массивы Stdout, Stderr, Reduced их значениями
+// СЌС‚РѕС‚ С†РёРєР» for СЂРµР°Р»РёР·РѕРІР°РЅ, С‡С‚РѕР±С‹ РЅР°РїРѕР»РЅРёС‚СЊ РјР°СЃСЃРёРІС‹ Stdout, Stderr, Reduced РёС… Р·РЅР°С‡РµРЅРёСЏРјРё
 	long long int reduced_array[jsort], stdout_array[jout], stderr_array[jerr];
 	int j = -1, j1 = -1, j2 = -1;
 	for (int i = 0; i < jent+1; i++) {
@@ -179,7 +182,7 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= с консоли
 		}
 
 
-// Вывод массивов Stdout, Stderr, Reduced в потоки и на экран 
+// Р’С‹РІРѕРґ РјР°СЃСЃРёРІРѕРІ Stdout, Stderr, Reduced РІ РїРѕС‚РѕРєРё Рё РЅР° СЌРєСЂР°РЅ 
 //	printf("\nStdout: ");
 //	if (jout == 0) printf("-");
 //	else { 
