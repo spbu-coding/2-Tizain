@@ -206,3 +206,4 @@ int main(int argc, char* argv[]) { // прием данных --from= и --to= �
     return different_positions(sorted_array, reduced_array, jsort);
 }
 
+
